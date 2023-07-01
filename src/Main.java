@@ -19,11 +19,12 @@ public class Main {
             Connection connection = DriverManager.getConnection(url, username, password);
 
             // Realizar operações no banco de dados...
-            String sql = "INSERT INTO usuarios (nome, email) VALUES (?, ?)";
+            String sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, "Nome do Usuário");
                 statement.setString(2, "email@example.com");
-
+                statement.setString(3, "abc123");
+                
                 statement.executeUpdate();
             }
             catch (SQLException e){
