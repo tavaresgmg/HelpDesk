@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,6 +32,8 @@ public class Main {
                 statement.executeUpdate();
             }
 
+            // Leitura dos dados do usuário
+
             Scanner scanner = new Scanner(System.in);
 
             System.out.print("Título: ");
@@ -43,14 +48,30 @@ public class Main {
             System.out.print("Prioridade: ");
             String prioridade =  scanner.nextLine();
 
-            System.out.print("Data da Criação: ");
-            String dataCriacao = scanner.nextLine();
+            //obtenção da da data atual
+            Date dataAtual = new Date();
+            SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 
+            String dataCriacao = formatoData.format((dataAtual));
+
+            System.out.print("Data da Criação: " + dataAtual);
+           
             System.out.print("ID do Usuário: ");
-            int idUsuario = scanner.nextInt();
-            scanner.nextLine();
+            int idUsuario;
+            try{
+                idUsuario = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e){
+                System.out.println("Entrada Inválida. Insira um número válido de usuário.");
+                scanner.nextLine();
+                return;
+            }
 
-            try(PreparedStatement statement = connection.prepareStatement(sql)){
+            //inserção dos dados obtidos no banco de dados, na tabela de chamados
+
+            String sqlChamados = "INSERT INTO chamados (titulo, descricao, status, prioridade, data_criacao, id_usuario) VALUES (?, ?, ?, ?, ?, ?)";
+            
+            try(PreparedStatement statement = connection.prepareStatement(sqlChamados)){
                 statement.setString(1, titulo);
                 statement.setString(2, descricao);
                 statement.setString(3, status);
