@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,6 +27,40 @@ public class Main {
                 statement.setString(3, "abc123");
                 
                 statement.executeUpdate();
+            }
+
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.print("Título: ");
+            String titulo = scanner.nextLine();
+
+            System.out.print("Descrição: ");
+            String descricao = scanner.nextLine();
+
+            System.out.print("Status: ");
+            String status = scanner.nextLine();
+
+            System.out.print("Prioridade: ");
+            String prioridade =  scanner.nextLine();
+
+            System.out.print("Data da Criação: ");
+            String dataCriacao = scanner.nextLine();
+
+            System.out.print("ID do Usuário: ");
+            int idUsuario = scanner.nextInt();
+            scanner.nextLine();
+
+            try(PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setString(1, titulo);
+                statement.setString(2, descricao);
+                statement.setString(3, status);
+                statement.setString(4, prioridade);
+                statement.setString(5, dataCriacao);
+                statement.setInt(6, idUsuario);
+
+                statement.executeUpdate();
+                
+                System.out.println("Chamado Inserido com sucesso!");
             }
             catch (SQLException e){
                 e.printStackTrace();

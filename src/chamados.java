@@ -19,6 +19,8 @@ public class chamados {
         this.dataCriacao = dataCriacao;
         this.idUsuario = idUsuario;
     }
+    
+    //getters e setters para as informações referentes aos chamados
 
     public int getId(){
         return id;
