@@ -10,7 +10,7 @@ import java.util.Date;
 public class Chamado {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.Auto)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
 
